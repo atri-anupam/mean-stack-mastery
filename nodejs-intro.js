@@ -1,4 +1,6 @@
-const http = require('http')
+const http = require('http');
+
+const email = require('./email');
 
 const hostname = '127.0.0.1'
 const port = 3000
