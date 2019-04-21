@@ -1,16 +1,34 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 var userRouter = require('./users/userRoutes');
 
 const app = express();
 const port = 3000;
+//format of the connection uri is
+//mongodb://server/database
+const uri = 'mongodb://localhost:27017';  
+//Connecting to mongoDD server using mongoose
+mongoose.connect(uri)
 
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
 
+//an error handling middleware
+app.use((err, req, res, next) => {
+    if(err) {
+        console.log(err.stack);
+        res.send('Something broke');
+    }else {
+        next();
+    }
+});
+
+
+//this is an example of an application level middleware
 app.use('/users', userRouter);
 
 //defining the routes
