@@ -1,4 +1,4 @@
-import { Injectable, of } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,8 +16,7 @@ export class GetDataService {
   ];
   constructor() { }
 
-  getPeopleList(): Observable<[]> {
+  getPeopleList() {
     //suppose this gets the data from the backend
-    return of (this.pplList);
   }
 }

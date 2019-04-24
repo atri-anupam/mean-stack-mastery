@@ -18,8 +18,6 @@ export class FirstComponentComponent implements OnInit {
 
   //creating a function to get the data from the service
   getList(): void {
-    this.getData.getPeopleList()
-      .subscribe(pplList => this.pplList = pplList);
   }
 
 
