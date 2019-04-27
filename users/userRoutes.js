@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 
+
 const secret = 'Thisismysecret';
 const availabeSchema = require('../schemas');
 
@@ -32,6 +33,10 @@ router.get('/token', (req, res) => {
         name: 'Anupam',
         email: 'atri@gmail.com'
     };
+    //var token = jwt.sign({ user, secret, { algorithm: 'RS256'});
+
+    //default algo is HMAC SHA256
+    //RSA HSA256
     var token = jwt.sign(user, secret);
     res.json(token);
 });
@@ -50,5 +55,30 @@ router.get('/checktoken', (req, res) => {
         });
     }
 });
+
+
+//suppose this is an observable
+const myObservable;
+
+//Example of an observer function
+const myObserver = {
+    next: x => console.log('Observer got a next value: ' + x),
+    error: err => console.error('Observer got an error: ' + err),
+    complete: () => console.log('Observer got a complete notification'),
+};
+
+//Example of subscribing to an observable
+myObservable.subscribe(myObserver);
+
+//Creating an Observable using the constructor function
+const myObservable = new Observable(myObserver);
+
+//Subscribing to an observable created using the constructor function
+myObservable.sbscribe({
+    next() {},
+    err() {},
+    complete() {}
+});
+
 
 module.exports = router;
