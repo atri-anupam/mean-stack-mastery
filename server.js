@@ -19,7 +19,7 @@ app.use('/users', userRouter);
 /////
 
 //Special route
-app.all('/ac',  (req, res, next) => {
+app.all('/',  (req, res, next) => {
     console.log('This is the secret route');
     //this will pass the control to the next handler
     next();

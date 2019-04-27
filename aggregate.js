@@ -1,6 +1,8 @@
 //The first step of the pipeline-- matching the documents
 db.customers.aggregate([
-    {$match: {'postalCode': 110089}}
+    {
+        $match: {'postalCode': 110089}
+    }
 ]);
 
 //the second step in the pipeline--- grouping the documents
