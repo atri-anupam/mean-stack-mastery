@@ -1,9 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
 var userRouter = require('./users/userRoutes');
-
 const app = express();
 const port = 3000;
 //format of the connection uri is
@@ -15,7 +13,34 @@ mongoose.connect(uri)
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
-})); 
+}));
+
+//auth middleware
+app.use( (req, res, next) => {
+    var originalUrl = req.url;
+    console.log("App middleware");
+    console.log(originalUrl);
+    if(originalUrl == '/users/token' || originalUrl == '/login') {
+        next();
+    }else {
+        console.log('Next in app middleware is hit');
+        var token = req.body.token || req.query.token || req.headers.authorization;
+        if(token) {
+            token = token.replace(/^Bearer\s/, '');
+            jwt.verify(token, secret, (err, decoded) => {
+                if(err) {
+                    res.json(err);
+                }else {
+                    res.json(decoded);
+                    next();
+                }
+            });
+        }else {
+            res.send('No token found. Please login');
+        }
+    }
+
+});
 
 //an error handling middleware
 app.use((err, req, res, next) => {
@@ -28,6 +53,8 @@ app.use((err, req, res, next) => {
 });
 
 
+
+
 //this is an example of an application level middleware
 app.use('/users', userRouter);
 
@@ -35,11 +62,11 @@ app.use('/users', userRouter);
 
 
 //Special route
-app.all('/ac',  (req, res, next) => {
-    console.log('This is the secret route');
-    //this will pass the control to the next handler
-    next();
-});
+// app.all('/ac',  (req, res, next) => {
+//     console.log('This is the secret route');
+//     //this will pass the control to the next handler
+//     next();
+// });
 
 app.get('/ac', (req, res, next) => {
     console.log('A hit');

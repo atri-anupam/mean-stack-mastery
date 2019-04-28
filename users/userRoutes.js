@@ -3,8 +3,6 @@ const router = express.Router();
 const mongoose = require('mongoose');
 var jwt = require('jsonwebtoken');
 
-
-const secret = 'Thisismysecret';
 const availabeSchema = require('../schemas');
 
 var user = mongoose.model('user', availabeSchema.userSchema);
@@ -29,6 +27,10 @@ router.get('/', (req, res) => {
 
 //generating a tokek and sending it in response
 router.get('/token', (req, res) => {
+
+    //use mongogse to get the user and create token for that user
+
+    var secret = 'Iamasecret123';
     var user = {
         name: 'Anupam',
         email: 'atri@gmail.com'
@@ -60,7 +62,7 @@ router.get('/checktoken', (req, res) => {
 //suppose this is an observable
 const myObservable;
 
-//Example of an observer function
+Example of an observer function
 const myObserver = {
     next: x => console.log('Observer got a next value: ' + x),
     error: err => console.error('Observer got an error: ' + err),
