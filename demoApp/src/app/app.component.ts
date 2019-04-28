@@ -8,8 +8,10 @@ import { CrudService } from './crud.service'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'demoApp';
+  title = 'Lets See';
   result;
+
+  name = 'Anupam';
 
   constructor(private cs: CrudService) {}
   
